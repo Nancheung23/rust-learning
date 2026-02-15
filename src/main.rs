@@ -24,5 +24,9 @@ fn main() {
     let d = 30_i32;
     // use function return a parameter
     let e = add(add(a, b), add(c, d));
-    println!("(a + b) + (c + d) = {}", e);
+    println!("origin: (a + b) + (c + d) = {}", e);
+    // usage of mutable
+    c = 50_i32;
+    let f = add(add(a, b), add(c, d));
+    println!("current: (a + b) + (c + d) = {}", f);
 }
