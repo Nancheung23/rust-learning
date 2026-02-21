@@ -139,16 +139,40 @@ fn num_usage() {
     let result = a + b;
     println!("{} + {}i", result.re, result.im)
 }
-
+// char_val
+fn char_val() {
+    let x = 'a';
+    println!("letter 'a' occupies {} bytes", size_of_val(&x));
+}
+// add function for expression
+fn add_num(x:i32, y:i32) -> i32 {
+    let x = x + 1;
+    let y = y + 5;
+    // return expression without keyword
+    x + y
+}
+// expression
+fn give_value(x:i32) -> i32 {
+    let y = {
+        x + 1
+    };
+    y
+}
 // main function
 fn main() {
     greet_world();
     add_usage();
+    println!("====================");
     check_variable();
     adv_variable();
     overwrite_variable();
+    println!("====================");
     space_count();
     guess_type();
     range_usage();
     num_usage();
+    println!("====================");
+    char_val();
+    println!("x + y = {}",add_num(1, 2));
+    println!("give y a value: {}", give_value(3));
 }
