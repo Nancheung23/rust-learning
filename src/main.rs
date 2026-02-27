@@ -163,25 +163,54 @@ fn push_word(mut word: String) -> String {
     word.push_str(", world!");
     word
 }
+// move partially
+fn move_part() {
+    #[derive(Debug)]
+    struct Person {
+        name: String,
+        age: Box<u8>,
+    }
+    let person = Person {
+        name: String::from("Alice"),
+        age: Box::new(20),
+    };
+    // only use the reference of person.age, but move person.name
+    // destructuring: {name, age} = person; --> name 2 attributes.
+    let Person {name, ref age} = person;
+    println!("The person's age is {}", age);
+    println!("The person's name is {}", name);
+    println!("The person's age from person struct is {}", person.age);
+    //println!("The person's name from person struct is {}", person.name);
+}
+
 
 // main function
 fn main() {
-    greet_world();
-    add_usage();
+    {
+        greet_world();
+        add_usage();
+    }
     println!("====================");
-    check_variable();
-    adv_variable();
-    overwrite_variable();
+    {
+        check_variable();
+        adv_variable();
+        overwrite_variable();
+    }
     println!("====================");
-    space_count();
-    guess_type();
-    range_usage();
-    num_usage();
+    {
+        space_count();
+        guess_type();
+        range_usage();
+        num_usage();
+    }
     println!("====================");
-    char_val();
-    println!("x + y = {}",add_num(1, 2));
-    println!("give y a value: {}", give_value(3));
+    {    
+        char_val();
+        println!("x + y = {}",add_num(1, 2));
+        println!("give y a value: {}", give_value(3));
+    }
     println!("====================");
     let example_word = String::from("hello");
     println!("{}", push_word(example_word));
+    move_part();
 }
