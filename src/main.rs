@@ -158,6 +158,12 @@ fn give_value(x:i32) -> i32 {
     };
     y
 }
+//push str
+fn push_word(mut word: String) -> String {
+    word.push_str(", world!");
+    word
+}
+
 // main function
 fn main() {
     greet_world();
@@ -175,4 +181,7 @@ fn main() {
     char_val();
     println!("x + y = {}",add_num(1, 2));
     println!("give y a value: {}", give_value(3));
+    println!("====================");
+    let example_word = String::from("hello");
+    println!("{}", push_word(example_word));
 }
