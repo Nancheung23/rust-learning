@@ -182,7 +182,23 @@ fn move_part() {
     println!("The person's age from person struct is {}", person.age);
     //println!("The person's name from person struct is {}", person.name);
 }
-
+// compare reference
+fn compare_ref(input: i32) {
+    let x = input;
+    let y = &x;
+    // in println it will automatically transmit y to its reference value, but if u want the addr, use {:p}
+    println!("value of x:{}, y: address:{:p}, value:{}", x, y, *y);
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
+} 
+// check length of a String
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+// changable ref (u want to modify the ref value directly)
+fn push_ref(s: &mut String, str: &String) {
+    s.push_str(str);
+}
 
 // main function
 fn main() {
@@ -210,7 +226,20 @@ fn main() {
         println!("give y a value: {}", give_value(3));
     }
     println!("====================");
+    {
     let example_word = String::from("hello");
     println!("{}", push_word(example_word));
     move_part();
+    compare_ref(5);
+    let s = String::from("rust study");
+    let len = calculate_length(&s);
+    // if u still want to have the ownership of s
+    println!("The length of {} is {}", s, len);
+    let mut origin = String::from("hello");
+    let insert = String::from(", world");
+    push_ref(&mut origin, &insert);
+    // origin = origin + insert
+    println!("final result: {}", &origin);
+    }
+    println!("====================");
 }
