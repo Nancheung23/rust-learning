@@ -1,245 +1,37 @@
-use num::complex::Complex;
+mod basics;
+mod functions;
+mod ownership;
+mod types;
 
-// a strct for number 
-struct Struct {
-    e: i32
-}
-// const
-const MAX_POINTS: u32 = 100_000;
+use basics::MAX_POINTS;
 
-// greeting
-fn greet_world() {
-    println!("{:?}, world!", define_x());
-    let chinese = "世界，你好！";
-    let english = "world, hello!";
-    let finnish = "maailmaa, terve!";
-    let regions = [chinese, english, finnish];
-    for region in regions.iter() {
-        println!("{}", &region);
-    }
-    println!("Max points: {}", MAX_POINTS);
+fn print_separator() {
+    println!("{}", "=".repeat(20));
 }
-// sum
-fn add(i:i32,j:i32) -> i32 {
-    i + j
-}
-//use case of add
-fn add_usage() {
-    // const a, b
-    let a = 10;
-    let b: i32 = 20;
-    // mutable c
-    let mut c = 30i32;
-    // _ for better reading xp
-    let d = 30_i32;
-    // use function return a parameter
-    let e = add(add(a, b), add(c, d));
-    println!("origin: (a + b) + (c + d) = {}", e);
-    // usage of mutable
-    c = 50_i32;
-    let f = add(add(a, b), add(c, d));
-    println!("current: (a + b) + (c + d) = {}", f);
-    // declare unused variable
-    let _x = 5_i32;
-}
-// check variable
-fn check_variable() {
-    let mut x:i32 = 5;
-    println!("The value of x is: {}", x);
-    x = 6_i32;
-    println!("The value of x is: {}", x);
-    // _ for unused variable
-    let _y = 10;
-    // assign multiple variables
-    let (a, mut b) : (bool, bool) = (true, false);
-    println!("a={:?}, b={:?}", a, b);
-    b = true;
-    assert_eq!(a, b);
-}
-// advanced assign variables
-fn adv_variable() {
-    // name 5 vars from a to e
-    let (a, b, c, d, e);
-    // a = 1, b = 2
-    (a, b) = (1, 2);
-    // c, d ,e = 1, 4, 5, .. means ignore the middle numbers (rest pattern)
-    [c, .. , d, _] = [1, 2, 3, 4, 5];
-    // e = 5
-    Struct {e, ..} = Struct { e : 5 };
-    assert_eq!([1, 2, 1, 4, 5], [a, b, c, d ,e]);
-}
-// overwrite variable
-fn overwrite_variable() {
-    let x = 5;
-    // become 6
-    let x = x + 1;
-    {
-        // variable is only overwritten in the inner scope, which is 12
-        let x = x * 2;
-        // print 12
-        println!("The value of x in the inner scope is : {}", x);
-    }
-    // print 6
-    println!("The value of x is: {}", x);
-}
-// space count
-fn space_count() {
-    let space = "      ";
-    let space = space.len();
-    println!("space count: {}", space);
-}
-// return the static value
-fn define_x() -> &'static str {
-    let x = "hello";
-    x
-}
-// return variable
-fn _define_y() -> String {
-    let y = String::from("hello");
-    y
-}
-// numeric type: i8->i128, isize. u8->u128, usize. f32/ f64. default in rust: i32
-// string type: &str ; char type: char for one unicode character such as 'A'
-// boolean: true/ false
-// unit type: (), same as the only value
-fn guess_type() {
-    let msg:&str = "Not a number!";
-    let guess:i32 = "42".parse().expect(msg);
-    println!("the number is: {}", guess);
-    // float
-    let mut x = 2.0;
-    let y: f32 = 3.1;
-    println!("x + y = {}", x + y);
-    // NAN
-    x = (-42.0_f32).sqrt();
-    if x.is_nan() {
-        println!("sqrt result: {}", x);
-    }
-}
-// Range
-fn range_usage() {
-    let numbers = [
-        1, 2
-    ];
-    for i in 1..=3 {
-        for num in numbers.iter() {
-            println!("{} : {} ", i,num);
-        }
-    }
-    for i in 'a'..='c' {
-        print!("{} ",i);
-    }
-    println!();
-}
-// num 0.4.0 dependency
-fn num_usage() {
-    // to represent: k + ji
-    let a = Complex {re: 2.1, im: -1.2};
-    let b = Complex::new(11.1, 22.2);
-    let result = a + b;
-    println!("{} + {}i", result.re, result.im)
-}
-// char_val
-fn char_val() {
-    let x = 'a';
-    println!("letter 'a' occupies {} bytes", size_of_val(&x));
-}
-// add function for expression
-fn add_num(x:i32, y:i32) -> i32 {
-    let x = x + 1;
-    let y = y + 5;
-    // return expression without keyword
-    x + y
-}
-// expression
-fn give_value(x:i32) -> i32 {
-    let y = {
-        x + 1
-    };
-    y
-}
-//push str
-fn push_word(mut word: String) -> String {
-    word.push_str(", world!");
-    word
-}
-// move partially
-fn move_part() {
-    #[derive(Debug)]
-    struct Person {
-        name: String,
-        age: Box<u8>,
-    }
-    let person = Person {
-        name: String::from("Alice"),
-        age: Box::new(20),
-    };
-    // only use the reference of person.age, but move person.name
-    // destructuring: {name, age} = person; --> name 2 attributes.
-    let Person {name, ref age} = person;
-    println!("The person's age is {}", age);
-    println!("The person's name is {}", name);
-    println!("The person's age from person struct is {}", person.age);
-    //println!("The person's name from person struct is {}", person.name);
-}
-// compare reference
-fn compare_ref(input: i32) {
-    let x = input;
-    let y = &x;
-    // in println it will automatically transmit y to its reference value, but if u want the addr, use {:p}
-    println!("value of x:{}, y: address:{:p}, value:{}", x, y, *y);
-    assert_eq!(5, x);
-    assert_eq!(5, *y);
-} 
-// check length of a String
-fn calculate_length(s: &String) -> usize {
-    s.len()
-}
-// changable ref (u want to modify the ref value directly)
-fn push_ref(s: &mut String, str: &String) {
-    s.push_str(str);
-}
-
 // main function
 fn main() {
-    {
-        greet_world();
-        add_usage();
-    }
-    println!("====================");
-    {
-        check_variable();
-        adv_variable();
-        overwrite_variable();
-    }
-    println!("====================");
-    {
-        space_count();
-        guess_type();
-        range_usage();
-        num_usage();
-    }
-    println!("====================");
-    {    
-        char_val();
-        println!("x + y = {}",add_num(1, 2));
-        println!("give y a value: {}", give_value(3));
-    }
-    println!("====================");
-    {
-    let example_word = String::from("hello");
-    println!("{}", push_word(example_word));
-    move_part();
-    compare_ref(5);
-    let s = String::from("rust study");
-    let len = calculate_length(&s);
-    // if u still want to have the ownership of s
-    println!("The length of {} is {}", s, len);
-    let mut origin = String::from("hello");
-    let insert = String::from(", world");
-    push_ref(&mut origin, &insert);
-    // origin = origin + insert
-    println!("final result: {}", &origin);
-    }
-    println!("====================");
+    basics::init();
+    basics::greet_world();
+    basics::check_variable();
+    basics::adv_variable();
+    basics::add_usage();
+    basics::overwrite_variable();
+    println!("Max points constant: {}", MAX_POINTS);
+    print_separator();
+    types::init();
+    types::space_count();
+    types::guess_type();
+    types::range_usage();
+    types::num_usage();
+    types::char_val();
+    println!("x + y = {}", functions::add_num(1, 2));
+    println!("give y a value: {}", functions::give_value(3));
+    print_separator();
+    ownership::init();
+    ownership::push_word_expamle();
+    ownership::move_part();
+    ownership::compare_ref(5);
+    ownership::calculate_length_example();
+    ownership::push_ref_example();
+    print_separator();
 }
