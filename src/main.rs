@@ -1,6 +1,7 @@
 mod basics;
 mod functions;
 mod ownership;
+mod string;
 mod types;
 
 use basics::MAX_POINTS;
@@ -33,5 +34,16 @@ fn main() {
     ownership::compare_ref(5);
     ownership::calculate_length_example();
     ownership::push_ref_example();
+    print_separator();
+    string::init();
+    string::greet(String::from("Alice"));
+    string::print_chinese();
+    println!("First word: {}", string::first_word(&String::from("hello")));
+    string::push_string_example();
+    string::delete_string_example();
+    string::concatenate_string_example();
+    string::ascii_example();
+    string::unicode_example();
+    string::chars_example();
     print_separator();
 }
