@@ -53,3 +53,41 @@ pub fn char_val() {
     let x = 'a';
     println!("letter 'a' occupies {} bytes", size_of_val(&x));
 }
+// tuple
+pub fn tuple_example() -> (i32, f64, u8) {
+    let tup: (i32, f64, u8) = (500, 6.4, 1);
+    tup
+}
+// struct
+// declare struct
+#[derive(Debug)]
+pub struct User {
+    pub active: bool,
+    pub username: String,
+    pub email: String,
+    pub balance: f64,
+    pub txs: u32,
+}
+pub fn struct_example(email: String, username: String) -> User {
+    // create instance
+    let mut user: User = User {
+        email: email,
+        username: username,
+        balance: 0.00,
+        txs: 0,
+        active: true,
+    };
+    // return instance
+    user
+}
+// declare function
+pub trait IsInvincible {
+    fn check_god_mode(&self) -> bool;
+}
+pub struct AlwaysEqual;
+// implement function for unit struct
+impl IsInvincible for AlwaysEqual {
+    fn check_god_mode(&self) -> bool {
+        true
+    }
+}

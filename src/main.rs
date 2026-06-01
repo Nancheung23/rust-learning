@@ -6,6 +6,8 @@ mod types;
 
 use basics::MAX_POINTS;
 
+use crate::types::IsInvincible;
+
 fn print_separator() {
     println!("{}", "=".repeat(20));
 }
@@ -45,5 +47,36 @@ fn main() {
     string::ascii_example();
     string::unicode_example();
     string::chars_example();
+    print_separator();
+    println!(
+        "Elements in tuple example: {}, {}, {}",
+        types::tuple_example().0,
+        types::tuple_example().1,
+        types::tuple_example().2
+    );
+    print_separator();
+    let user = types::struct_example(
+        String::from("default@example.com"),
+        String::from("test user"),
+    );
+    println!(
+        "User:\nUsername:{}\nEmail:{}\nBalance:{:?}\nTxs:{:?}\n{:?}",
+        user.username, user.email, user.balance, user.txs, user.active
+    );
+    // pretty print
+    println!("{:#?}", user);
+    let user1 = types::User {
+        balance: user.balance + 100.00,
+        ..user
+    };
+    println!("updated user info by adding 100 fund {:#?}", user1);
+    println!(
+        "balance update:\nold: {:#?}\nnew: {:#?}",
+        user.balance, user1.balance
+    );
+    let subject = types::AlwaysEqual;
+    if subject.check_god_mode() {
+        println!("trait bonded, it is INVINCIBLE!!!");
+    };
     print_separator();
 }
