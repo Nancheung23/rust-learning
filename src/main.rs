@@ -1,4 +1,5 @@
 mod basics;
+mod enums;
 mod functions;
 mod ownership;
 mod string;
@@ -6,7 +7,7 @@ mod types;
 
 use basics::MAX_POINTS;
 
-use crate::types::IsInvincible;
+use crate::{enums::print_card, types::IsInvincible};
 
 fn print_separator() {
     println!("{}", "=".repeat(20));
@@ -79,4 +80,15 @@ fn main() {
         println!("trait bonded, it is INVINCIBLE!!!");
     };
     print_separator();
+    let c1 = enums::PokerCard {
+        suit: enums::Pokersuit::Hearts,
+        value: 5,
+    };
+    let c2 = enums::PokerCard {
+        suit: enums::Pokersuit::Diamonds,
+        value: 10,
+    };
+    print_card(c1);
+    print_card(c2);
+    println!("{:?}", enums::plus(Some((5)), Some((10))));
 }

@@ -70,7 +70,7 @@ pub struct User {
 }
 pub fn struct_example(email: String, username: String) -> User {
     // create instance
-    let mut user: User = User {
+    let user: User = User {
         email: email,
         username: username,
         balance: 0.00,
