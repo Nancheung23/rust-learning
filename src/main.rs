@@ -1,3 +1,4 @@
+mod array;
 mod basics;
 mod enums;
 mod functions;
@@ -7,7 +8,9 @@ mod types;
 
 use basics::MAX_POINTS;
 
-use crate::{enums::print_card, types::IsInvincible};
+use crate::{
+    array::string_array, array::two_deminsion_array, enums::print_card, types::IsInvincible,
+};
 
 fn print_separator() {
     println!("{}", "=".repeat(20));
@@ -91,4 +94,8 @@ fn main() {
     print_card(c1);
     print_card(c2);
     println!("{:?}", enums::plus(Some((5)), Some((10))));
+    print_separator();
+    // array_example();
+    string_array();
+    two_deminsion_array();
 }
