@@ -3,6 +3,7 @@ mod basics;
 mod enums;
 mod functions;
 mod ifelse;
+mod matchexample;
 mod ownership;
 mod string;
 mod types;
@@ -10,9 +11,17 @@ mod types;
 use basics::MAX_POINTS;
 
 use crate::{
-    array::string_array, array::two_deminsion_array, enums::print_card, ifelse::count_100,
-    ifelse::enumerate_example, ifelse::forloop_example, ifelse::forloop_mutable_example,
-    ifelse::ifelse_example, types::IsInvincible,
+    array::{string_array, two_deminsion_array},
+    enums::print_card,
+    ifelse::{
+        count_100, enumerate_example, forloop_example, forloop_mutable_example, ifelse_example,
+    },
+    matchexample::{
+        Coin,
+        Direction::{self, North, West},
+        direction_select, iflet_div_value, match_div_value, value_in_cents,
+    },
+    types::IsInvincible,
 };
 
 fn print_separator() {
@@ -108,4 +117,19 @@ fn main() {
     forloop_mutable_example();
     count_100();
     enumerate_example();
+    print_separator();
+    let coin: Coin = Coin::Dime;
+    println!("coin value: {:?}", value_in_cents(coin));
+    let direction: Direction = Direction::West;
+    direction_select(direction);
+    match_div_value(8 as u8);
+    iflet_div_value(Some(8u8));
+    let v = vec![
+        Direction::East,
+        Direction::South,
+        Direction::North,
+        Direction::West,
+    ];
+    let result: Vec<&Direction> = v.iter().filter(|x| matches!(x, Direction::West)).collect();
+    println!("{:?}", result);
 }
