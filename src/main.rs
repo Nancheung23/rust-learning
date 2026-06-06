@@ -2,6 +2,7 @@ mod array;
 mod basics;
 mod enums;
 mod functions;
+mod ifelse;
 mod ownership;
 mod string;
 mod types;
@@ -9,7 +10,9 @@ mod types;
 use basics::MAX_POINTS;
 
 use crate::{
-    array::string_array, array::two_deminsion_array, enums::print_card, types::IsInvincible,
+    array::string_array, array::two_deminsion_array, enums::print_card, ifelse::count_100,
+    ifelse::enumerate_example, ifelse::forloop_example, ifelse::forloop_mutable_example,
+    ifelse::ifelse_example, types::IsInvincible,
 };
 
 fn print_separator() {
@@ -98,4 +101,11 @@ fn main() {
     // array_example();
     string_array();
     two_deminsion_array();
+    print_separator();
+    let condition = 12 % 7 == 0;
+    ifelse_example(condition);
+    forloop_example();
+    forloop_mutable_example();
+    count_100();
+    enumerate_example();
 }
