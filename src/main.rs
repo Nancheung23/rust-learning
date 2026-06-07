@@ -19,7 +19,8 @@ use crate::{
     matchexample::{
         Coin,
         Direction::{self, North, West},
-        direction_select, iflet_div_value, match_div_value, value_in_cents,
+        Point, Weather, direction_select, iflet_div_value, ignore_patterns, letelse_example,
+        match_div_value, travel, value_in_cents, variable_bind, whilelet_example,
     },
     types::IsInvincible,
 };
@@ -132,4 +133,12 @@ fn main() {
     ];
     let result: Vec<&Direction> = v.iter().filter(|x| matches!(x, Direction::West)).collect();
     println!("{:?}", result);
+    print_separator();
+    whilelet_example(10);
+    letelse_example(Some(20));
+    ignore_patterns(Point { x: 0, y: 255, z: 0 });
+    if !travel(Weather::Snowy(-6)) {
+        println!("Heavy snow, don't go out")
+    }
+    variable_bind(52);
 }
