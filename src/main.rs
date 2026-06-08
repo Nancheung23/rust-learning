@@ -4,6 +4,7 @@ mod enums;
 mod functions;
 mod ifelse;
 mod matchexample;
+mod method;
 mod ownership;
 mod string;
 mod types;
@@ -22,6 +23,7 @@ use crate::{
         Point, Weather, direction_select, iflet_div_value, ignore_patterns, letelse_example,
         match_div_value, travel, value_in_cents, variable_bind, whilelet_example,
     },
+    method::Circle,
     types::IsInvincible,
 };
 
@@ -141,4 +143,11 @@ fn main() {
         println!("Heavy snow, don't go out")
     }
     variable_bind(52);
+    print_separator();
+    let circle = Circle::new(0.0, 0.0, 2.1);
+    println!("area of the circle: {}", circle.area());
+    let bigger_circle = Circle::new(0.5, 0.5, 12.0);
+    if bigger_circle.fit_inside(&circle) {
+        println!("circle fits");
+    }
 }
